@@ -12,20 +12,31 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Upload the static files using the new `upload-artifact@v4`
+      # Step 2: Upload the `dist` folder as an artifact
       - name: Upload static files
         uses: actions/upload-artifact@v4
         with:
-          name: github-pages
-          path: dist  # Ensure this points to your compiled site
+          name: github-pages  # Artifact name
+          path: dist  # Ensure this is the correct path to your compiled site
 
-      # Step 3: Deploy to GitHub Pages
+  deploy:
+    needs: build  # Waits for the build job to finish
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Download the uploaded artifact
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages  # Must match the upload name
+          path: dist  # Extracts files back to `dist` folder
+
+      # Step 2: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
