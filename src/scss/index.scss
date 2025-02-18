@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Make the canvas cover the whole screen */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+}
+
+.star-wars-text {
+    text-align: center;
+    font-family: sans-serif; /* Use the Star Jedi font */
+    font-size: 6rem; /* Adjust size as needed */
+    text-transform: uppercase; /* Make text uppercase */
+    color: transparent; /* Make text transparent */
+    -webkit-text-stroke: 2px #d5c907; /* Solid yellow outline */
+}
+
+.inclined-text {
+    text-align: center;
+    font-size: 3rem;
+    color: #d5c907;
+    font-weight: bold;
+    transform: perspective(300px) rotateX(45deg);
+}
