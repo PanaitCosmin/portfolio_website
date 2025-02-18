@@ -19,10 +19,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Upload the static files from `dist`
+      # Step 2: Upload the static files using the new `upload-artifact@v4`
       - name: Upload static files
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
+          name: github-pages
           path: dist  # Ensure this points to your compiled site
 
       # Step 3: Deploy to GitHub Pages
