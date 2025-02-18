@@ -1,0 +1,30 @@
+name: Deploy SCSS Project to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Upload the static files from `dist`
+      - name: Upload static files
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: dist  # Ensure this points to your compiled site
+
+      # Step 3: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
