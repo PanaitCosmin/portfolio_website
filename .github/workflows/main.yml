@@ -1,9 +1,9 @@
-name: Deploy SCSS Project to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main # Adjust to your target branch
   workflow_dispatch:
 
 permissions:
@@ -15,39 +15,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
+      # Step 1: Check out the repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # Step 2: Debugging - List files in the repository
-      - name: List files in repository
-        run: ls -R
-
-      # Step 3: Upload the `dist` folder as an artifact
+      # Step 2: Upload the static files as an artifact
       - name: Upload static files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: github-pages  # Artifact must be named correctly
-          path: dist  # Ensure this is the correct path
+          path: dist # Adjust this to the folder containing your static site files
 
   deploy:
-    needs: build  # Wait for build job to complete
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
     steps:
-      # Step 1: Download the uploaded artifact
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages  # Name must match uploaded artifact
-          path: dist  # Ensures files are placed correctly
-
-      # Step 2: Debugging - List files in the downloaded artifact
-      - name: List files in artifact
-        run: ls -R dist
-
       # Step 3: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
