@@ -23,19 +23,22 @@ jobs:
       - name: Upload static files
         uses: actions/upload-artifact@v4
         with:
-          name: github-pages  # Artifact name
-          path: dist  # Ensure this is the correct path to your compiled site
+          name: github-pages  # Artifact must be named correctly
+          path: dist  # Ensure this is the correct path
 
   deploy:
-    needs: build  # Waits for the build job to finish
+    needs: build  # Wait for build job to complete
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     steps:
       # Step 1: Download the uploaded artifact
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: github-pages  # Must match the upload name
-          path: dist  # Extracts files back to `dist` folder
+          name: github-pages  # Name must match uploaded artifact
+          path: dist  # Ensures files are placed correctly
 
       # Step 2: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
