@@ -1,3 +1,12 @@
+// const svgContainers = document.querySelectorAll('.svg_container .float');
+
+// svgContainers.forEach((svg, index) => {
+//     console.log("Merge")
+//   // Assign a unique delay based on the index
+//   const delay = index * 0.5 + Math.random() * 1; // Adjust the multiplier (0.5s) as needed
+//   svg.style.animationDelay = `${delay}s`;
+// })
+
 const canvas = document.getElementById("starCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -75,5 +84,7 @@ function animate() {
 // Start the animation
 animate();
 
-// Generate a new shooting star every 10 seconds
-setInterval(createShootingStar, 3000);
+// Generate a new shooting star every 30 seconds
+setInterval(createShootingStar, 30000);
+
+
