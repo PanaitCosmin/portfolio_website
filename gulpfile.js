@@ -17,7 +17,7 @@ const paths = {
     html: 'src/*.html',
     scss: 'src/scss/**/*.scss',
     js: 'src/js/**/*.js',
-    // icons: 'icons/**/*',
+    icons: 'src/icons/**/*',
     imgs: 'src/images/**/*',
     output: './',
 }
@@ -40,6 +40,12 @@ function scssTask() {
 function imgsTask() {
     return src(paths.imgs, {encoding: false})
         .pipe(dest(`${paths.output}/images`))
+}
+
+// Copy Icons Task
+function iconsTask() {
+    return src(paths.icons)
+        .pipe(dest(`${paths.output}/icons`));
 }
 
 // JS Tasks 
@@ -71,7 +77,7 @@ function watchTasks() {
     watch(paths.html, series(htmlTask ,browserSyncReload))
     watch(paths.scss, series(scssTask, browserSyncReload))
     watch(paths.js, series(jsTask, browserSyncReload))
-    // watch(paths.icons, series(iconsTask, browserSyncReload))
+    watch(paths.icons, series(iconsTask, browserSyncReload))
     watch(paths.imgs, series(imgsTask, browserSyncReload))
 }
 
@@ -80,7 +86,7 @@ export default series(
     scssTask,
     jsTask,
     htmlTask,
-    // iconsTask,
+    iconsTask,
     imgsTask,
     browserSyncServe,
     watchTasks
